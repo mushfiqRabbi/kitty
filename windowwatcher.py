@@ -28,6 +28,7 @@ def on_resize(boss: Boss, window: Window, data: dict[str, Any]) -> None:
     layout_name = tab._current_layout_name
     window_count = len(tab.windows.all_windows)
     width = data['new_geometry'].right - data['new_geometry'].left
+    height = data['new_geometry'].bottom - data['new_geometry'].top
     spaces_new = data['new_geometry'].spaces
     total_space_new = spaces_new.left + spaces_new.right + spaces_new.top + spaces_new.bottom
     padding_zero = (
@@ -58,10 +59,10 @@ def on_resize(boss: Boss, window: Window, data: dict[str, Any]) -> None:
 
         # padding = "2" if layout_name == "splits" and window_count > 1 else "0"
     else:
-        if width <= 450:
+        if width <= 450 or height <= 300:
             if not padding_two:
                 boss.call_remote_control(window, ('set-spacing', 'padding=2' ))
-        elif width > 500:
+        elif width > 500 or height > 350:
             if padding_two:
                 boss.call_remote_control(window, ('set-spacing', 'padding=default' ))
         # else:
