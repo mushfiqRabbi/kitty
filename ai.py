@@ -21,7 +21,7 @@ def handle_result(args: list[str], answer: str, target_window_id: int, boss: Bos
     file = w.user_vars.get("current_file", "")
     if tab.title == "nvim":
         boss.call_remote_control(w, ('goto-layout', 'splits'))
-        boss.call_remote_control(w, ('launch', '--type=window', '--location=vsplit', '--bias=30', '--cwd=current', 'aider', file or ''))
+        boss.call_remote_control(w, ('launch', '--type=window', '--location=vsplit', '--bias=30', '--cwd=current', 'aider', file))
     else:
         boss.call_remote_control(w, ('goto-layout', 'splits'))
         boss.call_remote_control(w, ('launch', '--type=window', '--location=vsplit', '--bias=40', '--cwd=current', 'aider'))
