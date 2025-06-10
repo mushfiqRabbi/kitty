@@ -18,7 +18,7 @@ from kittens.tui.handler import result_handler
 def handle_result(args: list[str], answer: str, target_window_id: int, boss: Boss) -> None:
     tab = boss.active_tab
     w = boss.window_id_map.get(target_window_id)
-    file = w.user_vars["current_file"]
+    file = w.user_vars.get("current_file", "")
     if tab.title == "nvim":
         boss.call_remote_control(w, ('goto-layout', 'splits'))
         boss.call_remote_control(w, ('launch', '--type=window', '--location=vsplit', '--bias=30', '--cwd=current', 'aider', file or ''))
