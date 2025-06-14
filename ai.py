@@ -17,15 +17,11 @@ from kittens.tui.handler import result_handler
 def handle_result(args: list[str], answer: str, target_window_id: int, boss: Boss) -> None:
     tab = boss.active_tab
     w = boss.window_id_map.get(target_window_id)
-    file = w.user_vars.get("current_file", "")
+    # file = w.user_vars.get("current_file", "")
+
+    boss.call_remote_control(w, ('goto-layout', 'splits'))
 
     if tab.title == "nvim":
-        boss.call_remote_control(w, ('goto-layout', 'splits'))
-        if file:
-            text_arg = f"Please view the file located at {file}. After viewing, print *only* the absolute path to this file, and then acknowledge that you are ready for the next prompt."
-            boss.call_remote_control(w, ('launch', '--type=window', '--location=vsplit', '--bias=30', '--cwd=current', 'zsh', '-ic', f"goose run -t \"{text_arg}\" -s"))
-        else:
-            boss.call_remote_control(w, ('launch', '--type=window', '--location=vsplit', '--bias=30', '--cwd=current', 'zsh', '-ic', 'goose'))
+        boss.call_remote_control(w, ('send-key', 'Space', 'a', "i"))
     else:
-        boss.call_remote_control(w, ('goto-layout', 'splits'))
         boss.call_remote_control(w, ('launch', '--type=window', '--location=vsplit', '--bias=40', '--cwd=current', 'zsh', '-ic', 'goose' ))
