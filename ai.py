@@ -24,9 +24,9 @@ def handle_result(args: list[str], answer: str, target_window_id: int, boss: Bos
     if open_in_new_tab:
         # Ctrl+A Shift+i: Open AI in a new tab
         # boss.call_remote_control(w, ('launch', '--type=tab', '--cwd=current', 'aider', '--chat-mode', 'ask'))
-        boss.call_remote_control(w, ('launch', '--type=tab', '--cwd=current', 'zsh', '-ic', 'ocode'))
+        boss.call_remote_control(w, ('launch', '--type=tab', '--cwd=current', 'zsh', '-ic', 'ocode', '--mode', 'plan'))
     else:
         # Ctrl+A i: Open AI in vertical split (original behavior)
         boss.call_remote_control(w, ('goto-layout', 'splits'))
         # boss.call_remote_control(w, ('launch', '--type=window', '--location=vsplit', '--bias=40', '--cwd=current', 'aider', '--chat-mode', 'ask'))
-        boss.call_remote_control(w, ('launch', '--type=window', '--location=vsplit', '--bias=40', '--cwd=current', 'zsh', '-ic', 'ocode'))
+        boss.call_remote_control(w, ('launch', '--type=window', '--location=vsplit', '--bias=40', '--cwd=current', 'zsh', '-ic', 'ocode', '--mode', 'plan'))
