@@ -13,7 +13,7 @@ from kitty.window import Window
 #             return str(obj)
 
 
-full_screen_apps = {"nvim", "mvim", "btop", "htop", "top", "lazygit", "lazydocker", "lg", "ld"}
+full_screen_apps = {"avim","mvim", "nvim", "btop", "htop", "top", "lazygit", "lazydocker", "lg", "ld"}
 
 
 def on_load(boss: Boss, data: dict[str, Any]) -> None:
