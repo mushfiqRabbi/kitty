@@ -23,14 +23,14 @@ def handle_result(args: list[str], answer: str, target_window_id: int, boss: Bos
 
     if open_in_new_tab:
         # Ctrl+A Shift+i: Open AI in a new tab
-        if tab.title == "avim" or tab.title == "mvim" or tab.title == "nvim":
+        if tab.title == "mvim" or tab.title == "nvim":
             boss.call_remote_control(w, ('send-key', 'Space', 'a', 'Shift+i'))
             return
 
         boss.call_remote_control(w, ('launch', '--type=tab', '--cwd=current', 'zsh', '-ic', 'mise x node@latest -- qwen'))
     else:
         # Ctrl+A i: Open AI in vertical split (original behavior)
-        if tab.title == "avim" or tab.title == "mvim" or tab.title == "nvim":
+        if tab.title == "mvim" or tab.title == "nvim":
             boss.call_remote_control(w, ('send-key', 'Space', 'a', 'i'))
             return
 

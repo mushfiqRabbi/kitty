@@ -20,7 +20,7 @@ def handle_result(args: list[str], answer: str, target_window_id: int, boss: Bos
     tab = boss.active_tab
     w = boss.window_id_map.get(target_window_id)
     cwd = "--cwd-home" in args
-    if tab.title == "avim" or tab.title == "mvim" or tab.title == "nvim":
+    if tab.title == "mvim" or tab.title == "nvim":
         boss.call_remote_control(w, ('goto-layout', 'splits'))
         boss.call_remote_control(w, ('launch', '--type=window', '--location=hsplit', '--bias=30', f"--cwd={os.path.expanduser("~") if cwd else "current"}"))
     else:
