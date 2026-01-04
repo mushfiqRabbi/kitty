@@ -35,4 +35,4 @@ def handle_result(args: list[str], answer: str, target_window_id: int, boss: Bos
             return
 
         boss.call_remote_control(w, ('goto-layout', 'splits'))
-        boss.call_remote_control(w, ('launch', '--type=window', '--location=vsplit', '--bias=40', '--cwd=current', 'zsh', '-ic', 'mise x node@latest -- qwen'))
+        boss.call_remote_control(w, ('launch', '--type=window', '--location=vsplit', '--bias=45', '--cwd=current', 'zsh', '-ic', 'mise x node@latest -- qwen'))
