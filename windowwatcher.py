@@ -13,7 +13,7 @@ from kitty.window import Window
 #             return str(obj)
 
 
-full_screen_apps = {"mvim", "nvim", "btop", "htop", "top", "lazygit", "lazydocker", "lg", "ld"}
+full_screen_apps = {"btop", "htop", "lazydocker", "lazygit", "ld", "lg", "mvim", "nvim", "top", "y", "yazi"}
 
 
 def on_load(boss: Boss, data: dict[str, Any]) -> None:
@@ -79,23 +79,7 @@ def on_set_user_var(boss: Boss, window: Window, data: dict[str, Any]) -> None:
 
 
 def on_title_change(boss: Boss, window: Window, data: dict[str, Any]) -> None:
-    print("running on_title_change")
-
-    tab = boss.active_tab
-    layout_name = tab._current_layout_name
-    window_count = len(tab.windows.all_windows)
-
-    is_full_screen_app = any(window.title.lower().strip().startswith(app.lower()) for app in full_screen_apps)
-
-    if is_full_screen_app:
-        if layout_name == "splits":
-            new_padding = "2" if window_count > 1 else "0"
-        else:
-            new_padding = "0"
-    else:
-        new_padding = "default"
-
-    boss.call_remote_control(window, ("set-spacing", f"padding={new_padding}"))
+    ...
 
 
 def on_cmd_startstop(boss: Boss, window: Window, data: dict[str, Any]) -> None:
