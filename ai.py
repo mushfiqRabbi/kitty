@@ -27,7 +27,7 @@ def handle_result(args: list[str], answer: str, target_window_id: int, boss: Bos
             boss.call_remote_control(w, ('send-key', 'Space', 'a', 'Shift+i'))
             return
 
-        boss.call_remote_control(w, ('launch', '--type=tab', '--cwd=current', 'zsh', '-ic', 'opencode'))
+        boss.call_remote_control(w, ('launch', '--type=tab', '--cwd=current', 'opencode'))
     else:
         # Ctrl+A i: Open AI in vertical split (original behavior)
         if tab.title == "mvim" or tab.title == "nvim":
@@ -35,4 +35,4 @@ def handle_result(args: list[str], answer: str, target_window_id: int, boss: Bos
             return
 
         boss.call_remote_control(w, ('goto-layout', 'splits'))
-        boss.call_remote_control(w, ('launch', '--type=window', '--location=vsplit', '--bias=45', '--cwd=current', 'zsh', '-ic', 'opencode'))
+        boss.call_remote_control(w, ('launch', '--type=window', '--location=vsplit', '--bias=45', '--cwd=current', 'opencode'))

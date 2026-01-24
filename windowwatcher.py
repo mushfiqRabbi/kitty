@@ -13,7 +13,7 @@ from kitty.window import Window
 #             return str(obj)
 
 
-full_screen_apps = {"avim", "btop", "htop", "lazydocker", "lazygit", "ld", "lg", "mvim", "nvim", "top", "y", "yazi"}
+full_screen_apps = {"avim", "btop", "htop", "lazydocker", "lazygit", "ld", "lg", "mvim", "nvim", "top", "y", "yazi", "opencode"}
 
 
 def on_load(boss: Boss, data: dict[str, Any]) -> None:
@@ -39,8 +39,12 @@ def on_resize(boss: Boss, window: Window, data: dict[str, Any]) -> None:
     window_count = len(tab.windows.all_windows)
 
     is_full_screen_app = any(window.title.lower().strip().startswith(app.lower()) for app in full_screen_apps)
+    is_opencode = "opencode" in window.title.lower()
 
-    if is_full_screen_app:
+    if is_opencode:
+        # opencode: padding=2 in splits, default padding otherwise (fullscreen)
+        new_padding = "2" if layout_name == "splits" else "default"
+    elif is_full_screen_app:
         if layout_name == "splits":
             new_padding = "2" if window_count > 1 else "0"
         else:
@@ -85,10 +89,23 @@ def on_title_change(boss: Boss, window: Window, data: dict[str, Any]) -> None:
 def on_cmd_startstop(boss: Boss, window: Window, data: dict[str, Any]) -> None:
     print("running on_cmd_startstop")
 
-    # full_screen_apps = {"nvim", "btop", "htop", "top", "lazygit", "lazydocker", "lg", "ld", "kitty-scrollback.nvim"}
     cmd = data["cmdline"]
     is_start = data["is_start"]
-    if any(cmd.lower().strip().startswith(app.lower().strip()) for app in full_screen_apps):
+    
+    # Special handling for opencode
+    if "opencode" in cmd.lower():
+        if is_start:
+            tab = boss.active_tab
+            layout_name = tab._current_layout_name
+            window_count = len(tab.windows.all_windows)
+
+            # opencode: padding=2 in splits, default padding otherwise
+            padding = "2" if layout_name == "splits" else "default"
+        else:
+            padding = "default"
+
+        boss.call_remote_control(window, ("set-spacing", f"padding={padding}"))
+    elif any(cmd.lower().strip().startswith(app.lower().strip()) for app in full_screen_apps):
         if is_start:
             tab = boss.active_tab
             layout_name = tab._current_layout_name
